@@ -1,8 +1,23 @@
 import PropTypes from 'prop-types';
 import { Card, Button } from 'react-bootstrap';
-import Link from 'next/link';
+// import Link from 'next/link';
+// import useOrder from './useOrder';
+import { addProductToOrder } from '../utils/data/productData';
+import { createOrder } from '../utils/data/orderData';
 
-export default function ProductCard({ prodObj }) {
+export default function ProductCard({ prodObj, orderObj }) {
+  // const { addToOrder } = useOrder();
+
+  const handleAddToOrder = () => {
+    if (orderObj?.id) {
+      addProductToOrder(prodObj.id, orderObj.id).then();
+    } else {
+      createOrder().then(addProductToOrder(prodObj.id, orderObj.id));
+    }
+    console.warn('Prod obj:', prodObj);
+    console.warn('Order obj:', orderObj);
+  };
+
   return (
     <Card
       className="hoverable-card"
@@ -22,11 +37,11 @@ export default function ProductCard({ prodObj }) {
           {prodObj.price}
         </p>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <Link passHref href={`/product/${prodObj.id}`}>
-            <Button variant="dark" className="mr-2">
-              VIEW
-            </Button>
-          </Link>
+          {/* <Link href="/currentOrder" passHref> */}
+          <Button variant="dark" className="mr-2" onClick={handleAddToOrder}>
+            ADD TO ORDER
+          </Button>
+          {/* </Link> */}
         </div>
       </Card.Body>
     </Card>
@@ -39,5 +54,11 @@ ProductCard.propTypes = {
     id: PropTypes.number,
     price: PropTypes.number,
     imgUrl: PropTypes.string,
+  }).isRequired,
+  orderObj: PropTypes.shape({
+    id: PropTypes.number,
+    statusId: PropTypes.string,
+    paymentTypeId: PropTypes.string,
+    userId: PropTypes.number,
   }).isRequired,
 };

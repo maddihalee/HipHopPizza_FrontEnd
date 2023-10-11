@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
 import { Card, Button } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 import Link from 'next/link';
 
-export default function OrderCard({ ordObj }) {
+export default function OrderProductCard({ prodObj }) {
   return (
     <Card
       className="hoverable-card"
@@ -10,36 +10,30 @@ export default function OrderCard({ ordObj }) {
     >
       <Card.Body>
         <Card.Title style={{ textAlign: 'center', marginBottom: '10px' }}>
-          Name: {ordObj.name}
+          Name: {prodObj.name}
         </Card.Title>
         <p className="card-text bold" style={{ marginBottom: '5px' }}>
-          Phone Number: {ordObj.phone}
-        </p>
-        <p className="card-text bold" style={{ marginBottom: '5px' }}>
-          Email: {ordObj.email}
+          Phone Number: {prodObj.price}
         </p>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <Link passHref href={`/orders/${ordObj.id}`}>
+          <Link passHref href={`/orders/${prodObj.id}`}>
             <Button variant="dark" className="mr-2">
-              VIEW
+              EDIT
             </Button>
           </Link>
+          <Button variant="dark" className="mr-2">
+            DELETE
+          </Button>
         </div>
       </Card.Body>
     </Card>
   );
 }
 
-OrderCard.propTypes = {
-  ordObj: PropTypes.shape({
-    id: PropTypes.number,
-    statusId: PropTypes.string,
-    paymentTypeId: PropTypes.string,
-    userId: PropTypes.number,
-    email: PropTypes.string,
-    phone: PropTypes.number,
-    orderType: PropTypes.string,
+OrderProductCard.propTypes = {
+  prodObj: PropTypes.shape({
     name: PropTypes.string,
-    Tip: PropTypes.number,
+    id: PropTypes.number,
+    price: PropTypes.number,
   }).isRequired,
 };

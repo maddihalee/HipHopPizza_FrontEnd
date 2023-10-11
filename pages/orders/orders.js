@@ -11,7 +11,7 @@ export default function OrdersPage() {
 
   useEffect(() => {
     getAllTheProducts();
-  });
+  }, []);
 
   return (
     <div className="d-flex flex-wrap">
