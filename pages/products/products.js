@@ -11,7 +11,7 @@ export default function ProductsPage() {
 
   useEffect(() => {
     getAllTheProducts();
-  });
+  }, []);
 
   return (
     <div className="d-flex flex-wrap">
