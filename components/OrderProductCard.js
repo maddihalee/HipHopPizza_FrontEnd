@@ -13,10 +13,10 @@ export default function OrderProductCard({ prodObj }) {
           Name: {prodObj.name}
         </Card.Title>
         <p className="card-text bold" style={{ marginBottom: '5px' }}>
-          Phone Number: {prodObj.price}
+          Price: {prodObj.price}
         </p>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <Link passHref href={`/orders/${prodObj.id}`}>
+          <Link passHref href={`/orders/${prodObj?.id}`}>
             <Button variant="dark" className="mr-2">
               EDIT
             </Button>

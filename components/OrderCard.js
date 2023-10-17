@@ -33,8 +33,6 @@ export default function OrderCard({ ordObj }) {
 OrderCard.propTypes = {
   ordObj: PropTypes.shape({
     id: PropTypes.number,
-    statusId: PropTypes.string,
-    paymentTypeId: PropTypes.string,
     userId: PropTypes.number,
     email: PropTypes.string,
     phone: PropTypes.number,

@@ -1,17 +1,19 @@
 import { Form, FloatingLabel, Button } from 'react-bootstrap';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import { addProductToOrder } from '../utils/data/productData';
+import { addProductToOrder, createProduct } from '../utils/data/productData';
 
 const initialState = {
   name: '',
   price: '',
 };
 
-export default function AddOrderForm() {
+export default function AddItemForm({ ordObj }) {
   const [formInput, setFormInput] = useState(initialState);
 
   const router = useRouter();
+  // console.warn(orderId);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,7 +25,7 @@ export default function AddOrderForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addProductToOrder(formInput).then(() => router.push('/orders/orders'));
+    createProduct(formInput).then((response) => addProductToOrder(response, ordObj.orderId).then(() => router.push(`/orders/${ordObj.orderId}`)));
   };
 
   return (
@@ -53,7 +55,19 @@ export default function AddOrderForm() {
       </FloatingLabel>
 
       {/* SUBMIT BUTTON  */}
-      <Button type="submit"> Add to Order</Button>
+      <Button type="submit" onClick={handleSubmit}> Add to Order</Button>
     </Form>
   );
 }
+
+AddItemForm.propTypes = {
+  ordObj: PropTypes.shape({
+    orderId: PropTypes.number,
+    userId: PropTypes.number,
+    email: PropTypes.string,
+    phone: PropTypes.number,
+    orderType: PropTypes.string,
+    name: PropTypes.string,
+    Tip: PropTypes.number,
+  }).isRequired,
+};

@@ -26,7 +26,7 @@ export default function ViewOrderDetails() {
   return (
     <>
       <h1>Orders Items</h1>
-      <Button variant="dark" className="mr-2" onClick={() => router.push('/orders/addItem')}>
+      <Button variant="dark" className="mr-2" onClick={() => router.push({ pathname: '/orders/addItem', query: { order: orderDetails.id } })}>
         Add Item
       </Button>
       <div className="mt-5 d-flex flex-wrap">

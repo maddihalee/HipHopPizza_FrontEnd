@@ -1,11 +1,13 @@
-import AddOrderForm from '../../components/AddItemForm';
+import { useRouter } from 'next/router';
+import AddItemForm from '../../components/AddItemForm';
 
 export default function AddItemPage() {
+  const router = useRouter();
   const prodObj = {
-    id: 1,
     name: '',
     price: 10.99,
-    imgUrl: 'path/to/image.jpg',
+    orderId: router.query.order,
   };
-  return <AddOrderForm prodObj={prodObj} />;
+  console.warn(router.query);
+  return <AddItemForm ordObj={prodObj} />;
 }
