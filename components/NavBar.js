@@ -23,15 +23,15 @@ export default function NavBar() {
             <Link passHref href="/">
               <Nav.Link>Home</Nav.Link>
             </Link>
-            <Link passHref href="/products/products">
+            {/* <Link passHref href="/products/products">
               <Nav.Link>View Products</Nav.Link>
-            </Link>
+            </Link> */}
             <Link passHref href="/orders/orders">
               <Nav.Link>View Orders</Nav.Link>
             </Link>
-            <Link passHref href="/currentOrder">
+            {/* <Link passHref href="/currentOrder">
               <Nav.Link>Current Order</Nav.Link>
-            </Link>
+            </Link> */}
             <Link passHref href="/createOrder">
               <Nav.Link>Create an Order</Nav.Link>
             </Link>

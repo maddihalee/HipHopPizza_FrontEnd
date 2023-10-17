@@ -32,9 +32,22 @@ const getSingleProduct = (productId) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const addProductToOrder = (prodObj) => new Promise((resolve, reject) => {
+const createProduct = (payload) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/products`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
+});
+
+const addProductToOrder = (prodObj, orderId) => new Promise((resolve, reject) => {
   console.warn('Adding to order:', prodObj);
-  fetch(`${dbUrl}/productOrders`, {
+  fetch(`${dbUrl}/productOrders/${orderId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -62,4 +75,5 @@ export {
   getProducts,
   addProductToOrder,
   getOrderProducts,
+  createProduct,
 };

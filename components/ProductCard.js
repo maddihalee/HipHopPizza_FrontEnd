@@ -1,22 +1,17 @@
 import PropTypes from 'prop-types';
-import { Card, Button } from 'react-bootstrap';
-// import Link from 'next/link';
-// import useOrder from './useOrder';
-import { addProductToOrder } from '../utils/data/productData';
-import { createOrder } from '../utils/data/orderData';
+import { Card } from 'react-bootstrap';
+// import { useRouter } from 'next/router';
+// import { addProductToOrder } from '../utils/data/productData';
 
-export default function ProductCard({ prodObj, orderObj }) {
+export default function ProductCard({ prodObj }) {
   // const { addToOrder } = useOrder();
+  // const { router } = useRouter();
+  // const { id } = router.query;
 
-  const handleAddToOrder = () => {
-    if (orderObj?.id) {
-      addProductToOrder(prodObj.id, orderObj.id).then();
-    } else {
-      createOrder().then(addProductToOrder(prodObj.id, orderObj.id));
-    }
-    console.warn('Prod obj:', prodObj);
-    console.warn('Order obj:', orderObj);
-  };
+  // const handleAddToOrder = () => {
+  //   addProductToOrder(prodObj).then(() => router.push(`/orders/orders/${id}`));
+  //   console.warn('Prod obj:', prodObj);
+  // };
 
   return (
     <Card
@@ -38,9 +33,6 @@ export default function ProductCard({ prodObj, orderObj }) {
         </p>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           {/* <Link href="/currentOrder" passHref> */}
-          <Button variant="dark" className="mr-2" onClick={handleAddToOrder}>
-            ADD TO ORDER
-          </Button>
           {/* </Link> */}
         </div>
       </Card.Body>
@@ -54,11 +46,5 @@ ProductCard.propTypes = {
     id: PropTypes.number,
     price: PropTypes.number,
     imgUrl: PropTypes.string,
-  }).isRequired,
-  orderObj: PropTypes.shape({
-    id: PropTypes.number,
-    statusId: PropTypes.string,
-    paymentTypeId: PropTypes.string,
-    userId: PropTypes.number,
   }).isRequired,
 };
