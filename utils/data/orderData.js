@@ -48,8 +48,8 @@ const createOrder = (payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const deleteOrder = (id) => new Promise((resolve, reject) => {
-  fetch(`${dbUrl}/orders/${id}`, {
+const deleteOrder = (orderId) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/orders/${orderId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',

@@ -70,10 +70,23 @@ const getOrderProducts = (orderId) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const deleteOrderProducts = (productId) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/products/${productId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
+});
+
 export {
   getSingleProduct,
   getProducts,
   addProductToOrder,
   getOrderProducts,
   createProduct,
+  deleteOrderProducts,
 };
