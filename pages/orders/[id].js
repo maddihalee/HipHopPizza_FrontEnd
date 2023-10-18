@@ -36,7 +36,7 @@ export default function ViewOrderDetails() {
           </h5>
           <hr />
           {orderProducts?.map((product) => (
-            <OrderProductCard key={product.Id} prodObj={product} onUpdate={getProducts} />
+            <OrderProductCard key={product.id} prodObj={product} onUpdate={getProducts} />
           ))}
         </div>
       </div>

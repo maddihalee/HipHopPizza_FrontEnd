@@ -1,8 +1,16 @@
 import { Card, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+import { deleteOrderProducts } from '../utils/data/productData';
 
-export default function OrderProductCard({ prodObj }) {
+export default function OrderProductCard({ prodObj, onUpdate }) {
+  const deleteThisItem = () => {
+    if (window.confirm(`Delete ${prodObj.name}?`)) {
+      console.warn('product ID to delete:', prodObj.id);
+      deleteOrderProducts(prodObj.id).then(() => onUpdate());
+    }
+  };
+
   return (
     <Card
       className="hoverable-card"
@@ -10,9 +18,9 @@ export default function OrderProductCard({ prodObj }) {
     >
       <Card.Body>
         <Card.Title style={{ textAlign: 'center', marginBottom: '10px' }}>
-          Name: {prodObj.name}
+          {prodObj.name}
         </Card.Title>
-        <p className="card-text bold" style={{ marginBottom: '5px' }}>
+        <p className="card-text bold" style={{ textAlign: 'center', marginBottom: '5px' }}>
           Price: {prodObj.price}
         </p>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -21,7 +29,7 @@ export default function OrderProductCard({ prodObj }) {
               EDIT
             </Button>
           </Link>
-          <Button variant="dark" className="mr-2">
+          <Button variant="dark" className="mr-2" onClick={deleteThisItem}>
             DELETE
           </Button>
         </div>
@@ -36,4 +44,5 @@ OrderProductCard.propTypes = {
     id: PropTypes.number,
     price: PropTypes.number,
   }).isRequired,
+  onUpdate: PropTypes.func.isRequired,
 };

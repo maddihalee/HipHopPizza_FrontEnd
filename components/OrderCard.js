@@ -1,8 +1,16 @@
 import PropTypes from 'prop-types';
 import { Card, Button } from 'react-bootstrap';
 import Link from 'next/link';
+import { deleteOrder } from '../utils/data/orderData';
 
-export default function OrderCard({ ordObj }) {
+export default function OrderCard({ ordObj, onUpdate }) {
+  const deleteThisOrder = () => {
+    if (window.confirm(`Delete ${ordObj.name}?`)) {
+      console.warn('Order Id to delete:', ordObj.id);
+      deleteOrder(ordObj.id).then(() => onUpdate());
+    }
+  };
+
   return (
     <Card
       className="hoverable-card"
@@ -10,13 +18,13 @@ export default function OrderCard({ ordObj }) {
     >
       <Card.Body>
         <Card.Title style={{ textAlign: 'center', marginBottom: '10px' }}>
-          Name: {ordObj.name}
+          {ordObj.name}
         </Card.Title>
-        <p className="card-text bold" style={{ marginBottom: '5px' }}>
-          Phone Number: {ordObj.phone}
+        <p className="card-text bold" style={{ textAlign: 'center', marginBottom: '5px' }}>
+          {ordObj.phone}
         </p>
-        <p className="card-text bold" style={{ marginBottom: '5px' }}>
-          Email: {ordObj.email}
+        <p className="card-text bold" style={{ textAlign: 'center', marginBottom: '5px' }}>
+          {ordObj.email}
         </p>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <Link passHref href={`/orders/${ordObj.id}`}>
@@ -24,6 +32,9 @@ export default function OrderCard({ ordObj }) {
               VIEW
             </Button>
           </Link>
+          <Button variant="dark" className="mr-2" onClick={deleteThisOrder}>
+            DELETE
+          </Button>
         </div>
       </Card.Body>
     </Card>
@@ -40,4 +51,5 @@ OrderCard.propTypes = {
     name: PropTypes.string,
     Tip: PropTypes.number,
   }).isRequired,
+  onUpdate: PropTypes.func.isRequired,
 };
