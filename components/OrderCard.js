@@ -5,7 +5,7 @@ import { deleteOrder } from '../utils/data/orderData';
 
 export default function OrderCard({ ordObj, onUpdate }) {
   const deleteThisOrder = () => {
-    if (window.confirm(`Delete ${ordObj.name}?`)) {
+    if (window.confirm(`Delete ${ordObj.name}'s order?`)) {
       console.warn('Order Id to delete:', ordObj.id);
       deleteOrder(ordObj.id).then(() => onUpdate());
     }

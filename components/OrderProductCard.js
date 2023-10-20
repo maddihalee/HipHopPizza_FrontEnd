@@ -24,7 +24,7 @@ export default function OrderProductCard({ prodObj, onUpdate }) {
           Price: {prodObj.price}
         </p>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <Link passHref href={`/orders/${prodObj?.id}`}>
+          <Link passHref href={`/products/edit/${prodObj.id}`}>
             <Button variant="dark" className="mr-2">
               EDIT
             </Button>

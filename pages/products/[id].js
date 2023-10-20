@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { getSingleProduct } from '../../utils/data/productData';
+import AddItemForm from '../../components/AddItemForm';
 
 export default function ViewProductDetails() {
   const [prodDetails, setProdDetails] = useState([]);
@@ -13,16 +14,7 @@ export default function ViewProductDetails() {
 
   return (
     <>
-      <img src={prodDetails.image} alt={prodDetails.name} style={{ width: '300px' }} />
-      <div className="mt-5 d-flex flex-wrap">
-        <div className="text-white ms-5 details">
-          <h5>
-            {prodDetails.name}
-          </h5>
-          Price: {prodDetails.price}
-          <hr />
-        </div>
-      </div>
+      <AddItemForm ordObj={prodDetails} />
     </>
   );
 }
