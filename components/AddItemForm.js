@@ -1,15 +1,15 @@
 import { Form, FloatingLabel, Button } from 'react-bootstrap';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import { addProductToOrder, createProduct } from '../utils/data/productData';
+import { addProductToOrder, createProduct, updateProduct } from '../utils/data/productData';
 
 const initialState = {
   name: '',
   price: '',
 };
 
-export default function AddItemForm({ ordObj }) {
+export default function AddItemForm({ ordObj, prodObj }) {
   const [formInput, setFormInput] = useState(initialState);
 
   const router = useRouter();
@@ -25,8 +25,22 @@ export default function AddItemForm({ ordObj }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createProduct(formInput).then((response) => addProductToOrder(response, ordObj.orderId).then(() => router.push(`/orders/${ordObj.orderId}`)));
+    if (prodObj.id) {
+      const payload = { ...formInput, id: prodObj.id };
+      updateProduct(payload)
+        .then(router.push(`/orders/${ordObj.orderId}`));
+    } else {
+      createProduct(formInput).then((response) => addProductToOrder(response, ordObj.orderId).then(() => router.push(`/orders/${ordObj.orderId}`)));
+    }
   };
+
+  useEffect(() => {
+    if (prodObj.id) {
+      setFormInput(prodObj);
+    }
+  }, [prodObj]);
+
+  console.warn(prodObj.id);
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -69,5 +83,10 @@ AddItemForm.propTypes = {
     orderType: PropTypes.string,
     name: PropTypes.string,
     Tip: PropTypes.number,
+  }).isRequired,
+  prodObj: PropTypes.shape({
+    name: PropTypes.string,
+    id: PropTypes.number,
+    price: PropTypes.number,
   }).isRequired,
 };

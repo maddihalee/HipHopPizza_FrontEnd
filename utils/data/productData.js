@@ -77,8 +77,20 @@ const deleteOrderProducts = (productId) => new Promise((resolve, reject) => {
       'Content-Type': 'application/json',
     },
   })
-    .then((response) => response.json())
     .then((data) => resolve(data))
+    .catch(reject);
+});
+
+const updateProduct = (productId, payload) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/products/${productId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => response.json())
+    .then(resolve)
     .catch(reject);
 });
 
@@ -89,4 +101,5 @@ export {
   getOrderProducts,
   createProduct,
   deleteOrderProducts,
+  updateProduct,
 };
