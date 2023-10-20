@@ -35,12 +35,12 @@ export default function AddItemForm({ ordObj, prodObj }) {
   };
 
   useEffect(() => {
-    if (prodObj.id) {
+    if (prodObj?.id) {
       setFormInput(prodObj);
     }
   }, [prodObj]);
 
-  console.warn(prodObj.id);
+  console.warn(prodObj?.id);
 
   return (
     <Form onSubmit={handleSubmit}>
